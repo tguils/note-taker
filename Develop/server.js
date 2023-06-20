@@ -1,15 +1,9 @@
-//asking app to listen on port 3306 -in the terminal it should say now listening on port... if it worked correctly 
-//https://www.npmjs.com/package/dotenv dotenv is a great way to keep important items like passwords or api keys safe for
+
 const PORT = process.env.PORT || 3306;
-// https: //expressjs.com/en/starter/hello-world.html
-//make sure you have express installed npm install express --save
 const express = require('express');
 const app = express();
-
-//https: //www.npmjs.com/package/nodemon
 const fs = require('fs');
 const path = require('path');
-
 const apiRoutes = require('./routes/apiRoutes');
 const htmlRoutes = require('./routes/htmlRoutes');
 
