@@ -17,7 +17,6 @@ function noteDeleteNote(noteTakerArray, id) {
     let deleteID = parseInt(id);
     noteTakerArray.splice(deleteID, 1);
 
-    // This loop re-writes the indexes for the remaining notes.
     for (let i = deleteID; i < noteTakerArray.length; i++) {
         noteTakerArray[i].id = i.toString();
     }
