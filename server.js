@@ -43,28 +43,27 @@ if (fs.existsSync('db/db.json')) {
     console.error('Error grabbing db', error);
   }
 }
-//save notes - stringify?
+ //save notes - stringify?
  
   var saveNotes = (notes) => {
     console.log('save notes to db', notes);
     fs.writeFileSync('db/db.json', JSON.stringify(notes), 'utf8');
   };
 
-  // retrieve all notes from api 
 
-  // https://medium.com/@haybams/build-a-restful-api-with-node-js-and-express-js-d7e59c7a3dfb
+ // retrieve all notes from api 
   app.get('/api/notes', (req, res) => {
     res.json(notes);
   });
 
  // create route for new notes
-// https://stackoverflow.com/questions/56722040/how-to-push-an-object-into-an-array-in-async-function
 app.post('/api/notes', (req, res) => {
   const newNote = req.body;
   notes.push(newNote);
+  saveNotes(notes);
   res.status(201).json(newNote);
 });
-
-
  
   // delete notes function
+  
+  
