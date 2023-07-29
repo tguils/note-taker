@@ -1,11 +1,11 @@
-const PORT = process.env.PORT || 3000;
-const express = require('express');
-const path = require('path');
-const fs = require('fs');
-const bodyParser = require('body-parser');
+var PORT = process.env.PORT || 3000;
+var express = require('express');
+var path = require('path');
+var fs = require('fs');
+var bodyParser = require('body-parser');
 
 https://expressjs.com/en/resources/middleware/body-parser.html
-const app = express();
+var app = express();
 
 app.use(express.static('public'));
 app.use(express.json());
@@ -26,7 +26,25 @@ app.get('/', (req, res) => {
   });
 
   //to do:
-  //if notes exist - load them
+//define db data for notes
+
+let notes = [
+  {
+      "title":"Test Title",
+      "text":"Test text"
+  }
+]
+
+  //if db exists - load it
+if (fs.existsSync('db/db.json')) {
+  const data = fs.readFileSync('db/db.json', 'utf8');
+  console.log('data', data)
+  try {
+    notes = JSON.parse(data);
+  } catch (error) {
+    console.error('Error grabbing db', error);
+  }
+}
   //save notes - stringify?
   // retrieve all notes from api
   // create route for new notes
