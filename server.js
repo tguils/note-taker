@@ -4,7 +4,6 @@ var path = require('path');
 var fs = require('fs');
 var bodyParser = require('body-parser');
 
-https://expressjs.com/en/resources/middleware/body-parser.html
 var app = express();
 
 app.use(express.static('public'));
@@ -25,9 +24,8 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'notes.html'));
   });
 
-  //to do:
-//define db data for notes
 
+//define db data for notes
 let notes = [
   {
       "title":"Test Title",
@@ -35,9 +33,9 @@ let notes = [
   }
 ]
 
-  //if db exists - load it
+//if db exists - load it
 if (fs.existsSync('db/db.json')) {
-  const data = fs.readFileSync('db/db.json', 'utf8');
+  var data = fs.readFileSync('db/db.json', 'utf8');
   console.log('data', data)
   try {
     notes = JSON.parse(data);
@@ -45,7 +43,28 @@ if (fs.existsSync('db/db.json')) {
     console.error('Error grabbing db', error);
   }
 }
-  //save notes - stringify?
-  // retrieve all notes from api
-  // create route for new notes
+//save notes - stringify?
+ 
+  var saveNotes = (notes) => {
+    console.log('save notes to db', notes);
+    fs.writeFileSync('db/db.json', JSON.stringify(notes), 'utf8');
+  };
+
+  // retrieve all notes from api 
+
+  // https://medium.com/@haybams/build-a-restful-api-with-node-js-and-express-js-d7e59c7a3dfb
+  app.get('/api/notes', (req, res) => {
+    res.json(notes);
+  });
+
+ // create route for new notes
+// https://stackoverflow.com/questions/56722040/how-to-push-an-object-into-an-array-in-async-function
+app.post('/api/notes', (req, res) => {
+  const newNote = req.body;
+  notes.push(newNote);
+  res.status(201).json(newNote);
+});
+
+
+ 
   // delete notes function
