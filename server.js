@@ -1,18 +1,15 @@
 var express = require('express');
 var path = require('path');
 var fs = require('fs');
-var bodyParser = require('body-parser'); // Import body-parser
+var bodyParser = require('body-parser'); 
 
 var app = express();
-var port = process.env.PORT || 3000;
+var PORT = process.env.PORT || 3000;
 
 app.use(express.static('public'));
 
 app.use(bodyParser.json());
 
-app.listen(PORT, () => {
-    console.log(`API server now on port ${PORT}!`);
-});
 
 // joining index.html on the route
 app.get('/', (req, res) => {
@@ -77,3 +74,6 @@ app.post('/api/notes', async (req, res) => {
     }
   });
   
+  app.listen(PORT, () => {
+    console.log(`API server now on port ${PORT}!`);
+});
